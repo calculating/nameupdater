@@ -1,0 +1,190 @@
+.dark-theme {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    margin: 0;
+}
+
+.marking-select {
+    width: 10em;
+}
+
+.pair-section,
+.host-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.pair-section {
+    width: 50%;
+}
+
+.section-header {
+    align-items: center;
+    padding: 0.5em;
+    margin: 0.5em;
+    background-color: #444;
+    color: #fff;
+    font-size: 1.25em;
+    border-radius: 0.25em;
+}
+
+.section-title {
+    margin: 0;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.5em;
+    color: #fff;
+}
+
+.row>* {
+    margin: 0 0.5em;
+}
+
+.remove-button {
+    background-color: #ca5071;
+    border: none;
+    color: #fff;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+    border-radius: 0.15em;
+    margin-left: auto;
+}
+
+#add-pair-row-button,
+#add-host-row-button {
+    background-color: #b2dbed;
+    border: none;
+    color: 'black';
+    padding: 0.5em 1em;
+    cursor: pointer;
+    margin: 0.5em;
+    width: 50%;
+    border-radius: 0.5em;
+}
+
+.break {
+    width: 100%;
+    height: 0;
+}
+
+span {
+    /*highlight*/
+    background-color: #70694c;
+    /* pointer on hover */
+    cursor: pointer;
+    /* large font, rounded, margin so they are clearly individual tags*/
+    font-size: 1.5em;
+    border-radius: 0.25em;
+    padding: 0.05em;
+    margin: 0.25em;
+}
+
+#save-button {
+    background-color: #7c8cc3;
+    border: none;
+    color: 'black';
+    padding: 0.5em 1em;
+    cursor: pointer;
+    margin: .5em;
+    border-radius: 0.5em;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.angry-button {
+    background-color: #c37b99;
+    border: none;
+    color: 'black';
+    padding: 0.5em 1em;
+    cursor: pointer;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    width: 100%;
+}
+
+.happy-button {
+    background-color: #7b80c3;
+    border: none;
+    color: 'black';
+    padding: 0.5em 1em;
+    cursor: pointer;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    width: 100%;
+}
+
+.config {
+    height: 100%;
+    width: 15%;
+    margin-right: 2em;
+}
+
+.substring-warning-button,
+.substring-allow-button {
+    background-color: #653454;
+    border: none;
+    color: #fff;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+    border-radius: 0.15em;
+    /* don't show any outline */
+    outline: none;
+}
+
+.substring-allow-button {
+    background-color: #4d617e;
+}
+
+/* minimal modern looking scrollbar that matches the dark theme */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 65%;
+    background-color: rgb(34, 34, 34);
+    z-index: 1;
+}
+
+.popup-content {
+    /* add some padding */
+    padding: 3em;
+    display: flex;
+    /* wrap elements */
+    flex-wrap: wrap;
+}
+
+.popup-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.popup-close {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* add a bevel effect to all buttons so it's clear that they are clickable */
+button {
+    border: 1px solid #000;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}

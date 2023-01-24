@@ -1,0 +1,9 @@
+input[type=text]:-webkit-autofill,input[type=email]:-webkit-autofill,input[type=name]:-webkit-autofill{
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-background-clip: text;
+    backdrop-filter: brightness(10) invert(0.2) grayscale(1);
+    filter: blur(5px)
+}

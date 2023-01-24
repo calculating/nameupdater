@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body class="dark-theme">
+    <button id="panic-button" style="display: none;">panic</button>
+    <div class="config">
+        <button id="save-button">Config saved.</button>
+        <button id="substring-default-button" class="happy-button">Unspecified words: Allow</button>
+        <button id="website-default-button" class="happy-button">Unknown websites: Allow</button>
+        <button id="panic-hotkey-button" class="happy-button">Triple-escape panic: Off</button>
+    </div>
+
+    <div class="pair-section">
+        <div class="section-header">
+            <div class="section-title">Word Pairs</div>
+        </div>
+
+        <div class="row" id="pair-row-template" style="display: none;">
+
+            <input type="text" class="name-input">
+            <input type="text" class="sub-input">
+            <select class="marking-select">
+                <option value="none">None</option>
+                <option value="mono">Bold</option>
+                <option value="italic">Italic</option>
+                <option value="line">Line</option>
+            </select>
+
+            <button class="substring-allow-button" style="display: none;">allowed</button>
+            <button class="substring-warning-button" style="display: none;">ambiguities</button>
+            <button class="remove-button">X</button>
+
+            <div class="hidden sus popup">
+                <div class="popup-header">
+                    <button class="all-button">Allow All</button>
+                    <button class="popup-close">X</button>
+                </div>
+                <div class="popup-content"></div>
+            </div>
+            <div class="hidden allow popup">
+                <div class="popup-header">
+                    <button class="all-button">Remove All</button>
+                    <button class="popup-close">X</button>
+                </div>
+                <div class="popup-content"></div>
+            </div>
+        </div>
+
+        <div id="pair-rows"></div>
+        <button id="add-pair-row-button">Add row</button>
+    </div>
+
+    <div class="host-section">
+
+        <div class="section-header">
+            <div class="section-title">Configured Websites</div>
+        </div>
+
+        <div class="row" id="host-row-template" style="display: none;">
+
+            <input type="text" class="host-input">
+            <select class="filter-select">
+                <option value="no filter">No filtering</option>
+                <option value="no login">No login blur</option>
+                <option value="no text">No text scan</option>
+                <option value="filter">Filtered</option>
+            </select>
+            <button class="remove-button">X</button>
+
+        </div>
+
+        <div id="host-rows"></div>
+        <button id="add-host-row-button">Add row</button>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+
+</html>
