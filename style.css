@@ -3,7 +3,7 @@
 :root {
     --bgColor: #223344;
     --bgColor2: #090a0f;
-    --accentColor: #FFF;
+    --accentColor: rgb(244, 215, 231);
     --font: 'Karla', sans-serif;
     --delay: .3s;
 }
@@ -47,6 +47,19 @@ body {
     text-decoration: none;
     /* transition: all .25s cubic-bezier(.08, .59, .29, .99); */
     -webkit-tap-highlight-color: transparent;
+}
+
+span {
+    background: #F0F5FF;
+    background: linear-gradient(to right, #d2ceef 0%, #f3d0e3 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.link:hover > span {
+    background: none;
+    -webkit-text-fill-color: var(--bgColor);
 }
 
 @media (hover: hover) {
