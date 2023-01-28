@@ -6,6 +6,7 @@ var panic;
 var nameList;
 var censorList;
 var df;
+var scan = false;
 
 // optionally take a node, title if not specified
 function stringFilter(string, reverse = false) {
@@ -17,43 +18,58 @@ function stringFilter(string, reverse = false) {
         return string;
     }
     namePairs.forEach(function (pair, pi) {
-        (reverse ? pair.sub_caps : pair.name_caps).forEach((caps, i) => {
-            string = string.replace(new RegExp('(?<![a-zA-Z])' + caps + '(?![a-zA-Z])'),(reverse ? pair.name_caps : pair.sub_caps)[i])
-        })
-        string = string.replace(new RegExp('\\b' + (reverse ? pair.sub_input : pair.name_input) + '\\b', 'gi'),(reverse ? pair.name_input : pair.sub_input));
-
-        string = string.replace(new RegExp('\\w*' + (reverse ? pair.sub_input : pair.name_input) + '\\w*', 'gi'), function (match) {
-            lower = match.toLowerCase();
-            if (!pair.sus_list.includes(lower) && !nameList.includes(lower)) {
-                namePairs[pi].sus_list.push(lower);
-                throw_sus();
-            }
-            if (reverse) {
-                return pair.name_input
-            } else if (pair.allow_list.includes(lower)) {
-                return match;
-            } else if (!df.ss) {
-                return match;
-            } else {
-                let censor = '⍰'.repeat(match.length)
-                if (!nameList.includes(match)) {
-                    while (censorList.includes(censor)) {
-                        censor += '\u{200B}';
+        if (scan) {
+            // check if string contains a match for any of the names, and if it does, add the website to the hostname list as "default"
+            if (new RegExp('\\b' + pair.name_input + '\\b', 'gi').test(string)) {
+                host = window.location.hostname;
+                chrome.storage.sync.get('hostname_list', (items) => {
+                    console.log(items.hostname_list[host])
+                    if (!items.hostname_list[host]) {
+                        items.hostname_list[host] = 'default';
+                        chrome.storage.sync.set({ hostname_list: items.hostname_list });
                     }
-                    censorList.push(censor)
-                    nameList.push(match)
-                    namePairs.push({
-                        "name_input": match,
-                        "sub_input": censor,
-                        "name_caps": [],
-                        "sub_caps": [],
-                        "allow_list": [],
-                        "sus_list": []
-                    })
-                }
-                return censor
+                })
             }
-        })
+        }
+        if (ignoreLevel !== 'no filter' && ignoreLevel !== 'no text') {
+            (reverse ? pair.sub_caps : pair.name_caps).forEach((caps, i) => {
+                string = string.replace(new RegExp('(?<![a-zA-Z])' + caps + '(?![a-zA-Z])'),(reverse ? pair.name_caps : pair.sub_caps)[i])
+            })
+            string = string.replace(new RegExp('\\b' + (reverse ? pair.sub_input : pair.name_input) + '\\b', 'gi'),(reverse ? pair.name_input : pair.sub_input));
+    
+            string = string.replace(new RegExp('\\w*' + (reverse ? pair.sub_input : pair.name_input) + '\\w*', 'gi'), function (match) {
+                lower = match.toLowerCase();
+                if (!pair.sus_list.includes(lower) && !nameList.includes(lower)) {
+                    namePairs[pi].sus_list.push(lower);
+                    throw_sus();
+                }
+                if (reverse) {
+                    return pair.name_input
+                } else if (pair.allow_list.includes(lower)) {
+                    return match;
+                } else if (!df.ss) {
+                    return match;
+                } else {
+                    let censor = '⍰'.repeat(match.length)
+                    if (!nameList.includes(match)) {
+                        while (censorList.includes(censor)) {
+                            censor += '\u{200B}';
+                        }
+                        censorList.push(censor)
+                        nameList.push(match)
+                        namePairs.push({
+                            "name_input": match,
+                            "sub_input": censor,
+                            "name_caps": [],
+                            "sub_caps": [],
+                            "allow_list": [],
+                            "sus_list": []
+                        })
+                    }
+                    return censor
+                }
+            })
+        }
     })
     return string
 }
@@ -188,8 +204,17 @@ function load() {
         }
         chrome.storage.sync.get('defaults', (items) => {
             df = items.defaults;
+
             chrome.storage.sync.get('hostname_list', (items) => {
-                ignoreLevel = items.hostname_list[window.location.hostname] || (df.nw ? 'filter' : 'no filter');
+                if (items.hostname_list[window.location.hostname]) {
+                    ignoreLevel = items.hostname_list[window.location.hostname]
+                } else {
+                    ignoreLevel = df.nw ? 'filter' : 'no filter';
+                    scan = df.sn;
+                }
+                if (ignoreLevel == 'default') {
+                    ignoreLevel = df.nw ? 'filter' : 'no filter';
+                }
                 if (window.location.hostname == 'chat.google.com') {
                     ignoreLevel = 'no filter';
                 }
@@ -197,7 +222,7 @@ function load() {
                     addLoginStyles();
                 }
 
-                if (ignoreLevel !== 'no filter' && ignoreLevel !== 'no text' && !panic) {
+                if (((ignoreLevel !== 'no filter' && ignoreLevel !== 'no text') || scan) && !panic) {
                     initText();
                 }
             });

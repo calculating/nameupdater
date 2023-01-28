@@ -12,6 +12,7 @@
         <button id="save-button">Config saved.</button>
         <button id="substring-default-button" class="happy-button">Unspecified words: Allow</button>
         <button id="website-default-button" class="happy-button">Unknown websites: Allow</button>
+        <button id="scan-default-button" class="happy-button">Scan new websites: Off</button>
         <button id="panic-hotkey-button" class="happy-button">Triple-escape panic: Off</button>
     </div>
 
@@ -65,6 +66,7 @@
 
             <input type="text" class="host-input">
             <select class="filter-select">
+                <option value="default">Not specified</option>
                 <option value="no filter">No filtering</option>
                 <option value="no login">No login blur</option>
                 <option value="no text">No text scan</option>

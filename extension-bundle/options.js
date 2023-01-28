@@ -32,7 +32,7 @@ const save_button = document.getElementById('save-button');
 const substring_button = document.getElementById('substring-default-button');
 const website_button = document.getElementById('website-default-button');
 const panic_config_button = document.getElementById('panic-hotkey-button');
-
+const scan_button = document.getElementById('scan-default-button');
 
 const panic_button = document.getElementById('panic-button');
 // dictionary to load
@@ -60,6 +60,11 @@ substring_button.addEventListener('click', () => {
 
 website_button.addEventListener('click', () => {
     toggleWebsiteButton();
+    unsave();
+})
+
+scan_button.addEventListener('click', () => {
+    toggleScanButton();
     unsave();
 })
 
@@ -228,7 +233,8 @@ function save() {
         "namepair_list": namepair_list,
         "defaults": {
             'ss': substring_button.classList.contains('angry-button'),
-            'nw': website_button.classList.contains('angry-button')
+            'nw': website_button.classList.contains('angry-button'),
+            'sn': scan_button.classList.contains('angry-button')
         }
     }, () => {
         save_button.textContent = 'Config saved.';
@@ -465,6 +471,9 @@ function load() {
             if (defaults.nw) {
                 toggleWebsiteButton();
             }
+            if (defaults.sn) {
+                toggleScanButton();
+            }
         }
     })
     chrome.storage.local.get('dictionary', (items) => {
@@ -506,6 +515,18 @@ function toggleWebsiteButton() {
         website_button.textContent = 'Unknown websites: Censor';
         website_button.classList.remove('happy-button');
         website_button.classList.add('angry-button');
+    }
+}
+
+function toggleScanButton() {
+    if (scan_button.textContent == 'Scan new websites: Off') {
+        scan_button.textContent = 'Scan new websites: On';
+        scan_button.classList.add('angry-button');
+        scan_button.classList.remove('happy-button');
+    } else {
+        scan_button.textContent = 'Scan new websites: Off';
+        scan_button.classList.add('happy-button');
+        scan_button.classList.remove('angry-button');
     }
 }
 

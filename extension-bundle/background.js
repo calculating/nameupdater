@@ -13,6 +13,24 @@ chrome.runtime.onInstalled.addListener(function (details) {
             },
             namepair_list: [
                 {
+                    "name_input": "Sample Deadname",
+                    "sub_input": "Sample Alivename",
+                    "sub_unmarked": "Sample Alivename",
+                    "name_caps": [
+                        "sample deadname",
+                        "Sample deadname",
+                        "SAMPLE DEADNAME"
+                    ],
+                    "mark": "none",
+                    "sub_caps": [
+                        "sample alivename",
+                        "Sample alivename",
+                        "SAMPLE ALIVENAME"
+                    ],
+                    "allow_list": [],
+                    "sus_list": []
+                },
+                {
                     "name_input": "John",
                     "sub_input": "Jane",
                     "sub_unmarked": "Jane",
@@ -61,7 +79,8 @@ chrome.runtime.onInstalled.addListener(function (details) {
             ],
             defaults: {
                 'ss': true,
-                'nw': true
+                'nw': true,
+                'sn': true
             }
         }, () => {
             chrome.storage.sync.get('defaults', (items) => {
