@@ -1,1 +1,1 @@
-This contains the website data and full open-source extension code for my namechanger extension. Feel free to submit an issue post for any suggestions or bugs. Feel even more free to help me code by contributing with a pull request, as I'm by no means an expert.
+This contains the website data and full open-source extension code for my namechanger extension.
